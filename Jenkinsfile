@@ -17,6 +17,7 @@ try {
 		node {
 		    echo "Crazy ${envName} on ${env.BRANCH_NAME}"
 		}
+	    }
     }
 
     doIt('common2')
