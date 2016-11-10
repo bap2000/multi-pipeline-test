@@ -9,7 +9,7 @@ try {
         }
     }
 
-    def doIt(envName) {
+    doIt = { envName -> 
 	    stage("deploy ${envName}") {
 		timeout(time:7, unit:'DAYS') {
 			input message: "Deploy To ${envName}?", ok: 'Deploy'
