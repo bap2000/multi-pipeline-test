@@ -9,28 +9,22 @@ try {
         }
     }
 
-    stage('Another common stage') {
-        node {
-	    echo "Doing something common on ${env.BRANCH_NAME}"
-        }
+    def doIt(envName) {
+	    stage("deploy ${envName}") {
+		timeout(time:7, unit:'DAYS') {
+			input message: "Deploy To ${envName}?", ok: 'Deploy'
+		}
+		node {
+		    echo "Crazy ${envName} on ${env.BRANCH_NAME}"
+		}
     }
 
+    doIt('common2")
+
     if (env.BRANCH_NAME == "master") {
+	    doIt('master1')
+	    doIt('master2')
 
-	timeout(time:7, unit:'DAYS') {
-		input message: 'Deploy To QA?', ok: 'Deploy'
-	}
-	    stage('Master only stage 1') {
-		node {
-		    echo "Crazy master 1 on ${env.BRANCH_NAME}"
-		}
-	    }
-
-	    stage('Master only stage 2') {
-		node {
-		    echo "Crazy master 2 on ${env.BRANCH_NAME}"
-		}
-	    }
     }
 	
 } catch(Throwable t) {
