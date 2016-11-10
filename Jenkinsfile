@@ -19,7 +19,7 @@ try {
 		}
     }
 
-    doIt('common2")
+    doIt('common2')
 
     if (env.BRANCH_NAME == "master") {
 	    doIt('master1')
