@@ -3,7 +3,6 @@
 
 try {
     stage('Git') {
-	input message: 'Deploy To QA?', ok: 'Deploy'
         node {
             checkout scm
 	    echo "Doing something on ${env.BRANCH_NAME}"
@@ -11,6 +10,7 @@ try {
     }
 
     stage('Another common stage') {
+	input message: 'Deploy To QA?', ok: 'Deploy'
         node {
 	    echo "Doing something common on ${env.BRANCH_NAME}"
         }
