@@ -9,16 +9,6 @@ try {
         }
     }
 
-    doIt = { envName -> 
-	    stage("deploy ${envName}") {
-		timeout(time:7, unit:'DAYS') {
-			input message: "Deploy To ${envName}?", ok: 'Deploy'
-		}
-		node {
-		    echo "Crazy ${envName} on ${env.BRANCH_NAME}"
-		}
-	    }
-    }
 
     doIt('common2')
 
@@ -34,3 +24,15 @@ try {
 } finally {
     //slack currentBuild.result, currentBuild
 }
+
+
+  def doIt (String envName) {
+	    stage("deploy ${envName}") {
+		timeout(time:7, unit:'DAYS') {
+			input message: "Deploy To ${envName}?", ok: 'Deploy'
+		}
+		node {
+		    echo "Crazy ${envName} on ${env.BRANCH_NAME}"
+		}
+	    }
+    }
