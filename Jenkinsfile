@@ -10,13 +10,14 @@ try {
     }
 
     stage('Another common stage') {
-	input message: 'Deploy To QA?', ok: 'Deploy'
         node {
 	    echo "Doing something common on ${env.BRANCH_NAME}"
         }
     }
 
     if (env.BRANCH_NAME == "master") {
+
+	input message: 'Deploy To QA?', ok: 'Deploy'
 
 	    stage('Master only stage 1') {
 		node {
