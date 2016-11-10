@@ -3,6 +3,7 @@
 
 try {
     stage('Git') {
+	input message: 'Deploy To QA?', ok: 'Deploy'
         node {
             checkout scm
 	    echo "Doing something on ${env.BRANCH_NAME}"
