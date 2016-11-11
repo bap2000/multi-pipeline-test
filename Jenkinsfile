@@ -20,6 +20,7 @@ try {
     }
 	
 } catch(Throwable t) {
+    echo "GOT A THING: ${t.message}"
     currentBuild.result = "FAILED"
     throw t
 } finally {
