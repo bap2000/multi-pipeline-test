@@ -6,6 +6,7 @@ try {
         node {
             checkout scm
 	    echo "Doing something on ${env.BRANCH_NAME}"
+	    echo "RESULT ${currentBuild.result}"
         }
     }
 
