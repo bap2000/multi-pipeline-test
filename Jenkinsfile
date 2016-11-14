@@ -3,6 +3,7 @@
 
     stage('Git') {
         node {
+	    currentBuild.result='SUCCESS'
             checkout scm
 	    echo "Doing something on ${env.BRANCH_NAME}"
         }
@@ -21,11 +22,16 @@
 
   def doIt (String envName) {
 	    stage("deploy ${envName}") {
-		timeout(time:7, unit:'DAYS') {
-			input message: "Deploy To ${envName}?", ok: 'Deploy'
-		}
-		node {
-		    echo "Crazy ${envName} on ${env.BRANCH_NAME}"
+		try {
+			timeout(time:7, unit:'DAYS') {
+				input message: "Deploy To ${envName}?", ok: 'Deploy'
+			}
+			node {
+			    echo "Crazy ${envName} on ${env.BRANCH_NAME}"
+			}
+		} catch (e) {
+			echo "e.message"
+			currentBuild.executor.abortBuild()
 		}
 	    }
     }
