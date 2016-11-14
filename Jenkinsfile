@@ -32,8 +32,7 @@
 		} catch (e) {
 			echo "e.message"
 			//currentBuild.rawBuild.executor.abortResult()
-			currentBuild.rawBuild.executor.abortResult()
-			currentBuild.result='ABORTED'
+			currentBuild.result=Result.ABORTED
 		}
 	    }
     }
