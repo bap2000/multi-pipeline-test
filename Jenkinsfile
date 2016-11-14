@@ -1,10 +1,10 @@
 #! /bin/groovy
 
 
-try {
     stage('Git') {
         node {
             checkout scm
+            fail "Some reason"
 	    echo "Doing something on ${env.BRANCH_NAME}"
 	    echo "RESULT ${currentBuild.result}"
         }
@@ -19,13 +19,6 @@ try {
 
     }
 	
-} catch(Throwable t) {
-    echo "GOT A THING: ${currentBuild.result}"
-    currentBuild.result = "FAILED"
-    throw t
-} finally {
-    //slack currentBuild.result, currentBuild
-}
 
 
   def doIt (String envName) {
