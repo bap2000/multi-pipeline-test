@@ -4,11 +4,7 @@
     stage('Git') {
         node {
             checkout scm
-            echo "Some reason"
-            currentBuild.result = 'FAILURE'
-            return
 	    echo "Doing something on ${env.BRANCH_NAME}"
-	    echo "RESULT ${currentBuild.result}"
         }
     }
 
