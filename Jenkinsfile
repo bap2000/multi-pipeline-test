@@ -31,7 +31,7 @@
 			}
 		} catch (e) {
 			echo "e.message"
-			currentBuild.rawBuild.executor.abortBuild()
+			currentBuild.rawBuild.executor.abortResult()
 		}
 	    }
     }
