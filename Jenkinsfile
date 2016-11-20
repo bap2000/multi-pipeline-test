@@ -15,24 +15,17 @@
     if (env.BRANCH_NAME == "master") {
 	    doIt('master1')
 	    doIt('master2')
-
+	    build(job: 'Deploy/production-deployment-pipeline-start')
+    } else {
+	    build(job: 'Deploy/development-deployment-pipeline-start')
     }
 	
 
 
   def doIt (String envName) {
 	    stage("deploy ${envName}") {
-		try {
-			timeout(time:7, unit:'DAYS') {
-				input message: "Deploy To ${envName}?", ok: 'Deploy'
-			}
-			node {
-			    echo "Crazy ${envName} on ${env.BRANCH_NAME}"
-			}
-		} catch (e) {
-			echo "e.message"
-			//currentBuild.rawBuild.executor.abortResult()
-			currentBuild.rawBuild.result=Result.ABORTED
+		node {
+		    echo "Crazy ${envName} on ${env.BRANCH_NAME}"
 		}
 	    }
     }
