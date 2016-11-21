@@ -13,7 +13,8 @@
 "buildNumber": ${env.BUILD_NUMBER},
 "buildDisplayName": ${env.BUILD_DISPLAY_NAME},
 "jobName": "${env.JOB_NAME}",
-"buildTime": ${currentBuild.rawBuild.timestamp}"
+"buildCreated": ${currentBuild.rawBuild.timeInMillis}",
+"buildStarted": ${currentBuild.rawBuild.startTimeInMillis}"
 """)
 		archiveArtifacts fingerprintFile
 	}
