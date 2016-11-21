@@ -1,18 +1,20 @@
 #! /bin/groovy
 
 buildPipelineFolder='Test 1'
+setNameOnlyEnv='NONE'
 
 stage("set-display-name") {
     node {
         def triggerBuild = getTriggerBuild()
+	def envDisplay = env.deployment_environment == setNameOnlyEnv ? '' : " - ${env.deployment_environment}"
 	def displaySuffix = " (${triggerBuild.project.name} #${triggerBuild.number})"
 	def nearestUp = getNearestUpstreamBuild()
         nearestUp.displayName = "${nearestUp.displayName}${displaySuffix}"
-        currentBuild.displayName = "${currentBuild.displayName}${displaySuffix}"
+        currentBuild.displayName = "${currentBuild.displayName}${displaySuffix}${envDisplay}"
     }
 }
 
-if (env.deployment_environment != 'NONE') {
+if (env.deployment_environment != setNameOnlyEnv) {
 	stage("deploy") {
     		node {
         		def triggerBuild = getTriggerBuild()
