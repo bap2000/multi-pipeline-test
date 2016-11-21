@@ -10,14 +10,14 @@
         node {
 		def fingerprintFile = 'fingerprint'
 		def gitHash="git rev-parse HEAD".execute().text.trim()
-		writeFile(file: fingerprintFile, text: """
-"jobName": "${env.JOB_NAME}",
-"gitHash": "${gitHash}",
-"buildNumber": ${env.BUILD_NUMBER},
-"buildDisplayName": "${env.BUILD_DISPLAY_NAME}",
-"buildCreated": ${currentBuild.rawBuild.timeInMillis}",
-"buildStarted": ${currentBuild.rawBuild.startTimeInMillis}"
-""")
+		writeFile(file: fingerprintFile, text: """{
+  "jobName": "${env.JOB_NAME}",
+  "gitHash": "${gitHash}",
+  "buildNumber": ${env.BUILD_NUMBER},
+  "buildDisplayName": "${env.BUILD_DISPLAY_NAME}",
+  "buildCreated": ${currentBuild.rawBuild.timeInMillis}",
+  "buildStarted": ${currentBuild.rawBuild.startTimeInMillis}"
+}""")
 		archiveArtifacts fingerprintFile
 	}
     }
