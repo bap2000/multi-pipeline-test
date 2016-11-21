@@ -3,18 +3,17 @@
 
     stage('Git') {
         node {
-	    currentBuild.result='SUCCESS'
             checkout scm
-	    echo "Doing something on ${env.BRANCH_NAME}"
         }
     }
 
 
-    doIt('common2')
+    doIt('node.js')
+    doIt('ember app')
+    doIt('api')
+    doIt('integration tests')
 
     if (env.BRANCH_NAME == "master") {
-	    doIt('master1')
-	    doIt('master2')
 	    stage("Initialize deployment pipeline") {
 	    	build(job: 'Deploy/prod-pipeline-start')
 	    }
