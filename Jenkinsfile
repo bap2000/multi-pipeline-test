@@ -9,9 +9,10 @@
     stage('create fingerprint') {
         node {
 		def fingerprintFile = 'fingerprint'
+		def gitHash="git rev-parse HEAD".execute().text
 		writeFile(file: fingerprintFile, text: """
 "jobName": "${env.JOB_NAME}",
-"gitHash": "${env.GIT_COMMIT}",
+"gitHash": "${gitHash}",
 "buildNumber": ${env.BUILD_NUMBER},
 "buildDisplayName": "${env.BUILD_DISPLAY_NAME}",
 "buildCreated": ${currentBuild.rawBuild.timeInMillis}",
