@@ -15,9 +15,9 @@
     if (env.BRANCH_NAME == "master") {
 	    doIt('master1')
 	    doIt('master2')
-	    build(job: 'Deploy/production-deployment-pipeline-start')
+	    build(job: 'Deploy/prod-pipeline-start')
     } else {
-	    build(job: 'Deploy/development-deployment-pipeline-start')
+	    build(job: 'Deploy/dev-pipeline-start')
     }
 	
 

@@ -5,7 +5,10 @@ buildPipelineFolder='Test 1'
 stage("set-display-name") {
     node {
         def triggerBuild = getTriggerBuild()
-        getNearestUpstreamBuild().displayName = "${pipelineStartRun.displayName} - (${triggerBuild.project.name} #${triggerBuild.number})"
+	def displaySuffix = " (${triggerBuild.project.name} #${triggerBuild.number})"
+	def nearestUp = getNearestUpstreamBuild()
+        nearestUp.displayName = "${nearestUp.displayName}${displaySuffix}"
+        currentBuild.displayName = "${currentBuild.displayName}${displaySuffix}"
     }
 }
 
