@@ -1,10 +1,20 @@
 #! /bin/groovy
 
-
     stage('Git') {
         node {
             checkout scm
         }
+    }
+
+    stage('create fingerprint') {
+	def fingerprintFile = 'fingerprint'
+	writeFile(file: fingerprintFile, text: """
+"buildNumber": ${env.BUILD_NUMBER},
+"buildDisplayName": ${env.BUILD_DISPLAY_NAME},
+"jobName": "${env.JOB_NAME}",
+"buildTime": "${currentBuild.timestamp}"
+""")
+	archiveArtifacts fingerprintFile
     }
 
 
