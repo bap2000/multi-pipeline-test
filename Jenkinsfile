@@ -7,14 +7,16 @@
     }
 
     stage('create fingerprint') {
-	def fingerprintFile = 'fingerprint'
-	writeFile(file: fingerprintFile, text: """
+        node {
+		def fingerprintFile = 'fingerprint'
+		writeFile(file: fingerprintFile, text: """
 "buildNumber": ${env.BUILD_NUMBER},
 "buildDisplayName": ${env.BUILD_DISPLAY_NAME},
 "jobName": "${env.JOB_NAME}",
 "buildTime": ${currentBuild.rawBuild.timestamp}"
 """)
-	archiveArtifacts fingerprintFile
+		archiveArtifacts fingerprintFile
+	}
     }
 
 
