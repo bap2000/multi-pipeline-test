@@ -10,9 +10,10 @@
         node {
 		def fingerprintFile = 'fingerprint'
 		writeFile(file: fingerprintFile, text: """
-"buildNumber": ${env.BUILD_NUMBER},
-"buildDisplayName": ${env.BUILD_DISPLAY_NAME},
 "jobName": "${env.JOB_NAME}",
+"gitHash": "${env.GIT_COMMIT}",
+"buildNumber": ${env.BUILD_NUMBER},
+"buildDisplayName": "${env.BUILD_DISPLAY_NAME}",
 "buildCreated": ${currentBuild.rawBuild.timeInMillis}",
 "buildStarted": ${currentBuild.rawBuild.startTimeInMillis}"
 """)
