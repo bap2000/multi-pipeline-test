@@ -1,0 +1,64 @@
+#! /bin/groovy
+
+buildPipelineFolder='Test 1'
+
+stage("set-display-name") {
+    node {
+        def triggerBuild = getTriggerBuild()
+        getNearestUpstreamBuild().displayName = "${pipelineStartRun.displayName} - (${triggerBuild.project.name} #${triggerBuild.number})"
+    }
+}
+
+if (env.deployment_environment != 'NONE') {
+	stage("deploy") {
+    		node {
+        		def triggerBuild = getTriggerBuild()
+        		println "Got build ${triggerBuild.project.name} ${triggerBuild.number}"
+    		}
+	}
+}
+
+def getTriggerBuild() {
+    def run
+    for (cause in currentBuild.rawBuild.getAction(CauseAction.class).causes) {
+        run = getTriggerBuild(cause)
+        if (run) break
+    }          
+    if (!run) {
+        error "Could not find build run"
+    }
+    run
+}
+
+def getTriggerBuild(cause) {
+    if (cause.class.toString().contains("UpstreamCause")) {
+        if (cause.upstreamRun.project?.parent?.fullName == buildPipelineFolder) {
+            return cause.upstreamRun
+        }
+        for (upCause in cause.upstreamCauses) {
+            def run = getTriggerBuild(upCause)
+            if (run) return run
+        }
+    }
+}
+
+
+def getNearestUpstreamBuild() {
+    def run
+    for (cause in currentBuild.rawBuild.getAction(CauseAction.class).causes) {
+        run = getNearestUpstreamBuild(cause)
+        if (run) break
+    }          
+    if (!run) {
+        error "Could not find build run"
+    }
+    run
+}
+
+def getNearestUpstreamBuild(cause) {
+    if (cause.class.toString().contains("UpstreamCause")) {
+        return cause.upstreamRun
+    }
+}
+
+
