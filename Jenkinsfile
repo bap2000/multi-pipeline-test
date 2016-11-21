@@ -26,7 +26,7 @@
 
 
   def doIt (String envName) {
-	    stage("deploy ${envName}") {
+	    stage("${envName}") {
 		node {
 		    echo "Crazy ${envName} on ${env.BRANCH_NAME}"
 		}
