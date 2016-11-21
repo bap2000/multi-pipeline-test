@@ -16,7 +16,7 @@ if (env.deployment_environment != 'NONE') {
 	stage("deploy") {
     		node {
         		def triggerBuild = getTriggerBuild()
-        		println "Got build ${triggerBuild.project.name} ${triggerBuild.number}"
+        		println "Deploying ${triggerBuild.project.name} ${triggerBuild.number} to env ${env.deployment_environment}"
     		}
 	}
 }
