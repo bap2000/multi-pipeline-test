@@ -25,10 +25,10 @@ def extractArtifacts(virtualFile) {
 	if (virtualFile.isFile()) {
 		writeFile(virtualFile)
 	} else {
-		sh "mkdir ${virtualFile.name}"
-		dir virtualFile.name {
-			virtualFile.list().each { extractArtifacts(it) }
-		}
+		println "mkdir ${virtualFile.name}"
+		//dir virtualFile.name {
+			//virtualFile.list().each { extractArtifacts(it) }
+		//}
 	}
 }
 
