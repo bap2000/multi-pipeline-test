@@ -3,14 +3,12 @@
 buildPipelineFolder='Test 1'
 
 stage("set-display-name") {
-    node {
         def triggerBuild = getTriggerBuild()
 	def envDisplay = env.deployment_environment ? " - ${env.deployment_environment}" : ''
 	def displaySuffix = " (${triggerBuild.project.name} #${triggerBuild.number})"
 	def nearestUp = getNearestUpstreamBuild()
         nearestUp.displayName = "${nearestUp.displayName}${displaySuffix}"
         currentBuild.displayName = "${currentBuild.displayName}${displaySuffix}${envDisplay}"
-    }
 }
 
 if (env.deployment_environment) {
