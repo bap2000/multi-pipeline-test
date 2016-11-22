@@ -17,7 +17,9 @@ if (env.deployment_environment) {
         		def triggerBuild = getTriggerBuild()
         		println "Deploying ${triggerBuild.project.name} ${triggerBuild.number} to env ${env.deployment_environment}"
 			extractArtifacts(triggerBuild.artifactManager.root())
+			def buildUrl = triggerBuild.url
 			triggerBuild = null
+			println "Build url = ${buildUrl}"
 			sh "find . -ls"
 			//sh "cat buildProperties.json"
     		}
