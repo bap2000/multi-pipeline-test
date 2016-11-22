@@ -57,9 +57,8 @@ def writeFile(virtualFile) {
 			fos.write(buffer, 0, count);
 		}
 	} finally {
-		is.flush()
-		fos.flush()
 		is.close()
+		fos.flush()
 		fos.close()
 	}
 }
