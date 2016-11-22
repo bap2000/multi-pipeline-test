@@ -18,6 +18,7 @@ if (env.deployment_environment) {
         		println "Deploying ${triggerBuild.project.name} ${triggerBuild.number} to env ${env.deployment_environment}"
 			extractArtifacts(triggerBuild.artifactManager.root())
 			sh "find . -ls"
+			sh "cat buildProperties.json"
     		}
 	}
 }
