@@ -1,6 +1,7 @@
 #! /bin/groovy
 
 buildPipelineFolder='Test 1'
+jenkinsContextUrl='http://localhost:8080'
 
 stage("set-display-name") {
 	def triggerBuild = getTriggerBuild()
@@ -14,15 +15,21 @@ stage("set-display-name") {
 if (env.deployment_environment) {
 	stage("deploy") {
     		node {
+			sh "find . -ls"
         		def triggerBuild = getTriggerBuild()
         		println "Deploying ${triggerBuild.project.name} ${triggerBuild.number} to env ${env.deployment_environment}"
-			extractArtifacts(triggerBuild.artifactManager.root())
-			def buildUrl = triggerBuild.url
+			//extractArtifacts(triggerBuild.artifactManager.root())
+			downloadRootArtifacts(triggerBuild.artifactManager.root(), "${jenkinsContextUrl}${triggerBuild.url}")
 			triggerBuild = null
-			println "Build url = ${buildUrl}"
 			sh "find . -ls"
 			//sh "cat buildProperties.json"
     		}
+	}
+}
+
+def downloadRootArtifacts(rootDir, artifactsUrl) {
+	for (def virtualFile : rootDir.list()) {
+		sh "curl ${artifactsUrl}${virtualFile.name} > ${virtualFile.name}"
 	}
 }
 
