@@ -3,12 +3,12 @@
 buildPipelineFolder='Test 1'
 
 stage("set-display-name") {
-        def triggerBuild = getTriggerBuild()
+	def triggerBuild = getTriggerBuild()
 	def envDisplay = env.deployment_environment ? " - ${env.deployment_environment}" : ''
 	def displaySuffix = " (${triggerBuild.project.name} #${triggerBuild.number})"
 	def nearestUp = getNearestUpstreamBuild()
-        nearestUp.displayName = "${nearestUp.displayName}${displaySuffix}"
-        currentBuild.displayName = "${currentBuild.displayName}${displaySuffix}${envDisplay}"
+	nearestUp.displayName = "${nearestUp.displayName}${displaySuffix}"
+	currentBuild.displayName = "${currentBuild.displayName}${displaySuffix}${envDisplay}"
 }
 
 if (env.deployment_environment) {
@@ -16,8 +16,24 @@ if (env.deployment_environment) {
     		node {
         		def triggerBuild = getTriggerBuild()
         		println "Deploying ${triggerBuild.project.name} ${triggerBuild.number} to env ${env.deployment_environment}"
+			def aritfactsRoot = triggerBuild.artifactManager.root()
     		}
 	}
+}
+
+def extractArtifacts(virtualFile) {
+	if (virtualFile.isFile()) {
+		writeFile(virtualFile)
+	} else {
+		sh "mkdir ${virtualFile.name}"
+		dir virtualFile.name {
+			virtualFile.list().each { extractArtifacts(it) }
+		}
+	}
+}
+
+def writeFile(virtualFile) {
+	println "will write ${virtualFile.name}"
 }
 
 def getTriggerBuild() {
