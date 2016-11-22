@@ -24,11 +24,19 @@ if (env.deployment_environment) {
 def extractArtifacts(virtualFile) {
 	if (virtualFile.isFile()) {
 		writeFile(virtualFile)
+	} else if (virtualFile.name == 'archive') {
+		extractAtrifactsFromDirectory(virtualFile)
 	} else {
 		println "mkdir ${virtualFile.name}"
-		//dir virtualFile.name {
-			//virtualFile.list().each { extractArtifacts(it) }
+		//dir(virtualFile.name) {
+			extractAtrifactsFromDirectory(virtualFile)
 		//}
+	}
+}
+
+def extractAtrifactsFromDirectory(dir) {
+	for (def virtualFile : dir.list()) {
+		extractArtifacts(virtualFile)
 	}
 }
 
