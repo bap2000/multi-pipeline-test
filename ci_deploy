@@ -52,7 +52,8 @@ def writeFile(virtualFile) {
 		virtualFile.open().withStream { is ->
 			//fos << is
 			byte[] buffer = new byte[2048]
-    			while ((int count = is.read(buffer)) != -1) {
+			int count
+    			while ((count = is.read(buffer)) != -1) {
         			fos.write(buffer, 0, count);
     			}
 		}
