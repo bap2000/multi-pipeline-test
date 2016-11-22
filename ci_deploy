@@ -16,7 +16,7 @@ if (env.deployment_environment) {
     		node {
         		def triggerBuild = getTriggerBuild()
         		println "Deploying ${triggerBuild.project.name} ${triggerBuild.number} to env ${env.deployment_environment}"
-			def aritfactsRoot = triggerBuild.artifactManager.root()
+			extractArtifacts(triggerBuild.artifactManager.root())
     		}
 	}
 }
