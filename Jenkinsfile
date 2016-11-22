@@ -30,7 +30,7 @@
 
     if (env.BRANCH_NAME == "master") {
 	    stage("Initialize deployment pipeline") {
-	    	build(job: 'Deploy/prod-pipeline-start')
+	    	build(job: 'd2/begin-prod')
 	    }
     } else {
 	    stage("Initialize deployment pipeline") {
