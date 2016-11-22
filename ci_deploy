@@ -29,9 +29,9 @@ if (env.deployment_environment) {
 
 @NonCPS
 def downloadRootArtifacts(rootDir, artifactsUrl) {
-	for (def virtualFile : rootDir.list()) {
-		sh "curl ${artifactsUrl}${virtualFile.name} > ${virtualFile.name}"
-	}
+	//for (def virtualFile : rootDir.list()) {
+		//sh "curl ${artifactsUrl}${virtualFile.name} > ${virtualFile.name}"
+	//}
 }
 
 def extractArtifacts(virtualFile) {
