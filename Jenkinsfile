@@ -32,7 +32,7 @@ BUILD_NUMBER=${buildNumber}
 BUILD_DISPLAY_NAME="${buildDisplayName}"
 BUILD_CREATED=${buildCreated}
 BUILD_STARTED=${buildStarted}
-}""")
+""")
 		archiveArtifacts artifacts: "${propertiesFile},${jsonFile}", fingerprint: true
 	}
     }
