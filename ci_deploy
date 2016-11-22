@@ -19,17 +19,20 @@ if (env.deployment_environment) {
 			extractArtifacts(triggerBuild.artifactManager.root())
 			triggerBuild = null
 			sh "find . -ls"
-			sh "cat buildProperties.json"
+			//sh "cat buildProperties.json"
     		}
 	}
 }
 
 def extractArtifacts(virtualFile) {
 	if (virtualFile.isFile()) {
+		println "writing file ${virtualFile.name}"
 		writeFile(virtualFile)
 	} else if (virtualFile.name == 'archive') {
+		println "extracting archive root"
 		extractAtrifactsFromDirectory(virtualFile)
 	} else {
+		println "mkdir ${virtualFile.name}"
 		sh "mkdir ${virtualFile.name}"
 		dir(virtualFile.name) {
 			extractAtrifactsFromDirectory(virtualFile)
