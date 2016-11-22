@@ -27,10 +27,10 @@ def extractArtifacts(virtualFile) {
 	} else if (virtualFile.name == 'archive') {
 		extractAtrifactsFromDirectory(virtualFile)
 	} else {
-		println "mkdir ${virtualFile.name}"
-		//dir(virtualFile.name) {
+		sh "mkdir ${virtualFile.name}"
+		dir(virtualFile.name) {
 			extractAtrifactsFromDirectory(virtualFile)
-		//}
+		}
 	}
 }
 
@@ -41,7 +41,12 @@ def extractAtrifactsFromDirectory(dir) {
 }
 
 def writeFile(virtualFile) {
-	println "will write ${virtualFile.name}"
+	new FileOutputStream(virtualFile.name).withStream { fos ->
+		virtualFile.open().withStream { is ->
+			// oome :-)
+			fos.bytes = is.bytes
+		}
+	}
 }
 
 def getTriggerBuild() {
