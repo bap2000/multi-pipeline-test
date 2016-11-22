@@ -28,6 +28,7 @@ def extractArtifacts(virtualFile) {
 	if (virtualFile.isFile()) {
 		println "writing file ${virtualFile.name}"
 		writeFile(virtualFile)
+		sh "cat virtualFile.name"
 	} else if (virtualFile.name == 'archive') {
 		println "extracting archive root"
 		extractAtrifactsFromDirectory(virtualFile)
