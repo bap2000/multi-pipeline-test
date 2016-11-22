@@ -50,7 +50,7 @@ def extractAtrifactsFromDirectory(dir) {
 def writeFile(virtualFile) {
 	new FileOutputStream(virtualFile.name).withStream { fos ->
 		virtualFile.open().withStream { is ->
-			fos << is
+			fos << is.bytes
 		}
 	}
 }
