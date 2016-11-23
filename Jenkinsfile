@@ -49,7 +49,7 @@ BUILD_STARTED=${buildStarted}
 	    }
     } else {
 	    stage("Initialize deployment pipeline") {
-	    	build(job: 'Deploy/dev-pipeline-start')
+	    	build(job: 'd2/begin-dev')
 	    }
     }
 	
