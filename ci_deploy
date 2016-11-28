@@ -18,6 +18,7 @@ if (env.deployment_environment) {
 			sh "find . -ls"
         		def triggerBuild = getTriggerBuild()
 			def storePath = "/opt/jenkins_artifacts/ltw/${triggerBuild.number}"
+			deleteDir('props')
 			copy(storePath, 'props', '*', null)
         		println "Deploying ${triggerBuild.project.name} ${triggerBuild.number} to env ${env.deployment_environment}"
 			//extractArtifacts(triggerBuild.artifactManager.root())
@@ -26,6 +27,7 @@ if (env.deployment_environment) {
 			def pwd = pwd()
 			sh "find ${pwd} -ls"
 			sh "find . -ls"
+			sh "cat props/build.properties"
 			//sh "cat buildProperties.json"
     		}
 	}
