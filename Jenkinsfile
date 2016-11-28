@@ -36,7 +36,7 @@ BUILD_CREATED=${buildCreated}
 BUILD_STARTED=${buildStarted}
 """)
 		archiveArtifacts artifacts: "${propertiesFile},${jsonFile}", fingerprint: true
-		storeArtifacts(storePath, "${propertiesFile},${jsonFile}", null)
+		storeArtifacts(pwd(), storePath, "${propertiesFile},${jsonFile}", null)
 	}
     }
 
@@ -66,8 +66,8 @@ BUILD_STARTED=${buildStarted}
 	    }
     }
 
-    //@NonCPS
-    def storeArtifacts(String toDir, String includes, String excludes) {
+    @NonCPS
+    def storeArtifacts(from, String toDir, String includes, String excludes) {
 	def destDir = new File(toDir)
 	assert destDir.mkdirs()
 	def destPath = new hudson.FilePath(destDir)
