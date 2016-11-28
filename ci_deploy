@@ -17,9 +17,11 @@ if (env.deployment_environment) {
     		node {
 			sh "find . -ls"
         		def triggerBuild = getTriggerBuild()
+			def storePath = "/opt/jenkins_artifacts/ltw/${triggerBuild.number}"
+			copy(storePath, 'props', '*', null)
         		println "Deploying ${triggerBuild.project.name} ${triggerBuild.number} to env ${env.deployment_environment}"
 			//extractArtifacts(triggerBuild.artifactManager.root())
-			downloadRootArtifacts(triggerBuild.artifactManager.root(), "${jenkinsContextUrl}${triggerBuild.url}")
+			//downloadRootArtifacts(triggerBuild.artifactManager.root(), "${jenkinsContextUrl}${triggerBuild.url}")
 			triggerBuild = null
 			sh "find . -ls"
 			//sh "cat buildProperties.json"
@@ -121,3 +123,10 @@ def getNearestUpstreamBuild(cause) {
 }
 
 
+    @NonCPS
+    def copy(String from, String toDir, String includes, String excludes) {
+	def destDir = new File(toDir)
+	assert destDir.mkdirs()
+	def destPath = new hudson.FilePath(destDir)
+	new hudson.FilePath(new File(from)).copyRecursiveTo(includes, excludes, destPath)
+    }
