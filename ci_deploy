@@ -23,6 +23,8 @@ if (env.deployment_environment) {
 			//extractArtifacts(triggerBuild.artifactManager.root())
 			//downloadRootArtifacts(triggerBuild.artifactManager.root(), "${jenkinsContextUrl}${triggerBuild.url}")
 			triggerBuild = null
+			def pwd = pwd()
+			sh "find ${pwd} -ls"
 			sh "find . -ls"
 			//sh "cat buildProperties.json"
     		}
