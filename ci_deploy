@@ -132,7 +132,8 @@ def getNearestUpstreamBuild(cause) {
     @NonCPS
     def copy(String from, String toDir, String includes, String excludes) {
 	def destDir = new File(toDir)
-	assert destDir.mkdirs()
+	if (!destDir.exists())
+		assert destDir.mkdirs()
 	def destPath = new hudson.FilePath(destDir)
 	new hudson.FilePath(new File(from)).copyRecursiveTo(includes, excludes, destPath)
     }
