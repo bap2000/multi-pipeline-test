@@ -36,7 +36,7 @@ BUILD_CREATED=${buildCreated}
 BUILD_STARTED=${buildStarted}
 """)
 		archiveArtifacts artifacts: "${propertiesFile},${jsonFile}", fingerprint: true
-		storeArtifacts(storePath, "${propertiesFile},${jsonFile}")
+		storeArtifacts(storePath, "${propertiesFile},${jsonFile}", null)
 	}
     }
 
