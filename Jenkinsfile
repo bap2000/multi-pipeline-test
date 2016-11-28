@@ -7,7 +7,7 @@
     }
 
     stage('create properties') {
-        //node {
+        node {
 		def propertiesFile = 'build.properties'
 		def jsonFile = 'buildProperties.json'
 		def jobName = env.JOB_NAME
@@ -37,7 +37,7 @@ BUILD_STARTED=${buildStarted}
 """)
 		archiveArtifacts artifacts: "${propertiesFile},${jsonFile}", fingerprint: true
 		storeArtifacts(pwd(), storePath, "${propertiesFile},${jsonFile}", null)
-	//}
+	}
     }
 
 
@@ -71,6 +71,6 @@ BUILD_STARTED=${buildStarted}
 	def destDir = new File(toDir)
 	assert destDir.mkdirs()
 	def destPath = new hudson.FilePath(destDir)
-	new hudson.FilePath(new File('.')).copyRecursiveTo(includes, excludes, destPath)
+	new hudson.FilePath(from).copyRecursiveTo(includes, excludes, destPath)
     }
 
