@@ -66,7 +66,7 @@ BUILD_STARTED=${buildStarted}
 	    }
     }
 
-    @NonCPS
+    //@NonCPS
     def storeArtifacts(String toDir, String includes, String excludes) {
 	def destDir = new File(toDir)
 	assert destDir.mkdirs()
