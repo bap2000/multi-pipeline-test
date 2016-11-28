@@ -67,10 +67,10 @@ BUILD_STARTED=${buildStarted}
     }
 
     @NonCPS
-    def storeArtifacts(toDir, includes, excludes) {
+    def storeArtifacts(String toDir, String includes, String excludes) {
 	def destDir = new File(toDir)
 	assert destDir.mkdirs()
 	def destPath = new hudson.FilePath(destDir)
-	new hudson.FilePath(new File()).copyRecursiveTo(includes, excludes, destPath)
+	new hudson.FilePath(new File('.')).copyRecursiveTo(includes, excludes, destPath)
     }
 
