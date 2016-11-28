@@ -27,7 +27,7 @@ if (env.deployment_environment) {
 			//downloadRootArtifacts(triggerBuild.artifactManager.root(), "${jenkinsContextUrl}${triggerBuild.url}")
 			triggerBuild = null
 			sh "find . -ls"
-			//sh "cat props/build.properties"
+			sh "cat props/build.properties"
 			//sh "cat buildProperties.json"
     		}
 	}
