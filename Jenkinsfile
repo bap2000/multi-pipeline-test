@@ -7,7 +7,7 @@
     }
 
     stage('create properties') {
-        node {
+        //node {
 		def propertiesFile = 'build.properties'
 		def jsonFile = 'buildProperties.json'
 		def jobName = env.JOB_NAME
@@ -37,7 +37,7 @@ BUILD_STARTED=${buildStarted}
 """)
 		archiveArtifacts artifacts: "${propertiesFile},${jsonFile}", fingerprint: true
 		storeArtifacts(pwd(), storePath, "${propertiesFile},${jsonFile}", null)
-	}
+	//}
     }
 
 
