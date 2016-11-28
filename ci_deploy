@@ -15,10 +15,10 @@ stage("set-display-name") {
 if (env.deployment_environment) {
 	stage("deploy") {
     		node {
+			deleteDir()
 			sh "find . -ls"
         		def triggerBuild = getTriggerBuild()
 			def storePath = "/opt/jenkins_artifacts/ltw/${triggerBuild.number}"
-			deleteDir('props')
 			copy(storePath, 'props', '*', null)
         		println "Deploying ${triggerBuild.project.name} ${triggerBuild.number} to env ${env.deployment_environment}"
 			//extractArtifacts(triggerBuild.artifactManager.root())
