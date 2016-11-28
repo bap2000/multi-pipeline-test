@@ -69,7 +69,7 @@ BUILD_STARTED=${buildStarted}
     def storeArtifacts(toDir, includes, excludes) {
 	def destDir = new File(toDir)
 	assert destDir.mkdirs()
-	def destPath = new FilePath(destDir)
-	newFilePath(new File()).cpoyRecursiveTo(includes, excludes, destPath)
+	def destPath = new hudson.FilePath(destDir)
+	new hudson.FilePath(new File()).copyRecursiveTo(includes, excludes, destPath)
     }
 
