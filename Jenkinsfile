@@ -17,6 +17,8 @@
 		def buildCreated = currentBuild.rawBuild.timeInMillis
 		def buildStarted = currentBuild.rawBuild.startTimeInMillis
 
+		def storePath = "/opt/jenkins_artifacts/ltw/${buildNumber}"
+
 		writeFile(file: jsonFile, text: """{
   "jobName": "${jobName}",
   "gitHash": "${gitHash}",
@@ -34,6 +36,7 @@ BUILD_CREATED=${buildCreated}
 BUILD_STARTED=${buildStarted}
 """)
 		archiveArtifacts artifacts: "${propertiesFile},${jsonFile}", fingerprint: true
+		storeArtifacts(storePath, "${propertiesFile},${jsonFile}")
 	}
     }
 
@@ -61,5 +64,12 @@ BUILD_STARTED=${buildStarted}
 		    echo "Crazy ${envName} on ${env.BRANCH_NAME}"
 		}
 	    }
+    }
+
+    def storeArtifacts(toDir, includes, excludes) {
+	def destDir = new File(toDir)
+	assert destDir.mkdirs()
+	def destPath = new FilePath(destDir)
+	newFilePath(new File()).cpoyRecursiveTo(includes, excludes, destPath)
     }
 
