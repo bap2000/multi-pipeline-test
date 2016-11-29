@@ -1,5 +1,7 @@
 #! /bin/groovy
 
+
+if (currentBuild.rawBuild.project.parent.fullName == 'Test 1') {
     stage('Git') {
         node {
             checkout scm
@@ -56,7 +58,10 @@ BUILD_STARTED=${buildStarted}
 	    }
     }
 	
+} else {
+    doIt('not main')
 
+}
 
   def doIt (String envName) {
 	    stage("${envName}") {
