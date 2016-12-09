@@ -20,7 +20,7 @@ if (currentBuild.rawBuild.project.parent.fullName == 'Test 1') {
 		def buildStarted = currentBuild.rawBuild.startTimeInMillis
 
 		def storePath = "/opt/jenkins_artifacts/ltw/${buildNumber}"
-		for (def i : env.entrySet()) {
+		for (def i : env.environment.entrySet()) {
 			println i.key
 			println i.value
 			println
