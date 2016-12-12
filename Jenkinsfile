@@ -14,6 +14,7 @@ if (currentBuild.rawBuild.project.parent.fullName == 'Test 1') {
 		def propertiesFile = 'build.properties'
 		def jsonFile = 'buildProperties.json'
 		def jobName = env.JOB_NAME
+		def branchName = env.BRANCH_NAME
 		def gitHash = 'TODO'
 		def buildNumber = env.BUILD_NUMBER
 		def buildDisplayName = env.BUILD_DISPLAY_NAME
@@ -28,6 +29,7 @@ if (currentBuild.rawBuild.project.parent.fullName == 'Test 1') {
 		}
 		writeFile(file: jsonFile, text: """{
   "jobName": "${jobName}",
+  "gitBranch": "${branchName}",
   "gitHash": "${gitHash}",
   "buildNumber": ${buildNumber},
   "buildDisplayName": "${buildDisplayName}",
@@ -36,6 +38,7 @@ if (currentBuild.rawBuild.project.parent.fullName == 'Test 1') {
 }""")
 		writeFile(file: propertiesFile, text: """
 JOB_NAME="${jobName}"
+GIT_BRANCH="${branchName}"
 GIT_HASH="${gitHash}"
 BUILD_NUMBER=${buildNumber}
 BUILD_DISPLAY_NAME="${buildDisplayName}"
@@ -48,8 +51,16 @@ BUILD_STARTED=${buildStarted}
     }
 
 
+
     doIt('node.js')
     doIt('ember app')
+	    stage("e2e") {
+		lock('e2e') {
+			node {
+			    sh "sleep 20"
+			}
+		}
+	    }
     doIt('api')
     doIt('integration tests')
 
