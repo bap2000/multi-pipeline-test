@@ -1,6 +1,7 @@
 #! /bin/groovy
 
 
+timestamps {
 if (currentBuild.rawBuild.project.parent.fullName == 'Test 1') {
     stage('Git') {
         node {
@@ -71,6 +72,7 @@ BUILD_STARTED=${buildStarted}
 } else {
     doIt('not main')
 
+}
 }
 
   def doIt (String envName) {
