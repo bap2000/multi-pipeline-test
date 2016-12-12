@@ -21,7 +21,7 @@ if (currentBuild.rawBuild.project.parent.fullName == 'Test 1') {
 		def buildCreated = currentBuild.rawBuild.timeInMillis
 		def buildStarted = currentBuild.rawBuild.startTimeInMillis
 
-		def storePath = "/opt/jenkins_artifacts/ltw/${buildNumber}"
+		def storePath = "/opt/jenkins_artifacts/ltw/${branchName}/${buildNumber}"
 		writeFile(file: jsonFile, text: """{
   "jobName": "${jobName}",
   "gitBranch": "${branchName}",
