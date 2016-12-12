@@ -4,8 +4,7 @@
 if (currentBuild.rawBuild.project.parent.fullName == 'Test 1') {
     stage('Git') {
         node {
-            def x = checkout scm
-	    x.x()
+            checkout scm
         }
     }
 
