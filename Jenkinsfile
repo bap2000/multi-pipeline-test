@@ -7,6 +7,7 @@ if (currentBuild.rawBuild.project.parent.fullName == 'Test 1') {
     stage('Git') {
         node {
             checkout scm
+	    println "GOT CHANGE_ID ${env.CHANGE_ID}"
         }
     }
 
